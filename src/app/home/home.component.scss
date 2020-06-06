@@ -1,0 +1,14 @@
+
+.toggle-button {
+    margin-left: 18px;
+}
+.movie-card {
+    padding: 20px;
+}
+.movie-overview {
+    padding-left: 15px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}

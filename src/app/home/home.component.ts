@@ -4,21 +4,26 @@ import { MovieService } from '../movie.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['../app.component.scss','./home.component.scss']
 })
 
 export class HomeComponent implements OnInit {
 
-  popularMovies;
-  trendingMovies;
+  movieList;
 
   constructor( private movieService: MovieService ) { }
 
+
+  ngOnInit(): void {
+    this.listPopularMovies();
+  }
+
+
   listPopularMovies() {
     this.movieService.getPopularMovies().subscribe(
-      data => {
-        this.popularMovies = data;
-        console.log('popular',data);
+      (data: any) => {
+        this.movieList = data.results;
+        console.log('popular',this.movieList);
       },
       err => console.log(err)
     );
@@ -26,17 +31,14 @@ export class HomeComponent implements OnInit {
 
   listTrendingMovies() {
     this.movieService.getTrendingMovies().subscribe(
-      data => {
-        this.trendingMovies = data;
-        console.log('trending',data);
+      (data: any) => {
+        this.movieList = data.results;
+        console.log('trending',this.movieList);
       },
       err => console.log(err)
     );
   }
 
-  ngOnInit(): void {
-    this.listPopularMovies();
-    this.listTrendingMovies();
-  }
+  
 
 }

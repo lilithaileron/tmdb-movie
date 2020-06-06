@@ -1,1 +1,25 @@
-<p> This is the home page!</p>
+<div class="main-layout">
+    <div class="toggle-button">
+    <mat-button-toggle-group #group="matButtonToggleGroup" value="popular">
+        <mat-button-toggle (click)="listPopularMovies()" value="popular">Popular</mat-button-toggle>
+        <mat-button-toggle (click)="listTrendingMovies()" value="trending">Trending</mat-button-toggle>
+    </mat-button-toggle-group>
+    </div>
+
+    <div class="row col-md-12" *ngIf="movieList">
+        <div class="col-md-3 col-sm-4 movie-card" *ngFor="let movie of movieList">
+        <mat-card>
+            <img mat-card-image src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" />
+            <mat-card-header>
+                <mat-card-title>{{movie.title}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p class="movie-overview">{{movie.overview}}</p>                
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button>View Details</button>
+            </mat-card-actions>
+        </mat-card>
+        </div>
+    </div>
+</div>

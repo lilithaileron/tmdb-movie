@@ -28,4 +28,15 @@ export class MovieService {
     const api = this.API_HOST + 'movie/popular?api_key=' + this.API_KEY + '&language=en-US&page=1';
     return this.http.get(api);
   }
+
+  search(terms) {
+    return terms.debounceTime(400)
+      .distinctUntilChanged()
+      .switchMap(terms => this.searchEntries(terms));
+  }
+
+  searchEntries(term) {
+    const api = `https://api.themoviedb.org/3/search/movie?api_key=${this.API_KEY}&query=${term}`;
+    return this.http.get(api);
+  }
 }
