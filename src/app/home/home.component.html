@@ -1,15 +1,28 @@
 <div class="main-layout">
-    <div class="toggle-button">
-    <mat-button-toggle-group #group="matButtonToggleGroup" value="popular">
-        <mat-button-toggle (click)="listPopularMovies()" value="popular">Popular</mat-button-toggle>
-        <mat-button-toggle (click)="listTrendingMovies()" value="trending">Trending</mat-button-toggle>
-    </mat-button-toggle-group>
+
+    <div class="row">
+        <div class="col-md-6 text-left">
+            <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="currentSection">
+                <mat-button-toggle (click)="listPopularMovies(1); paginator.firstPage();" value="popular" ngDefaultControl>Popular</mat-button-toggle>
+                <mat-button-toggle (click)="listTrendingMovies(1); paginator.firstPage();" value="trending" ngDefaultControl>Trending</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <div class="col-md-6 text-right">
+            <form (submit)="searchMovie(1); paginator.firstPage();">
+                <mat-form-field class="search-input">
+                    <mat-label>Search movie by title</mat-label>
+                    <input matInput placeholder="Ex. Avengers" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}" />
+                </mat-form-field>
+                <button mat-icon-button color="primary"><mat-icon>search</mat-icon></button>
+            </form>
+        </div>
     </div>
 
     <div class="row col-md-12" *ngIf="movieList">
         <div class="col-md-3 col-sm-4 movie-card" *ngFor="let movie of movieList">
         <mat-card>
-            <img mat-card-image src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" />
+            <img *ngIf="movie.poster_path" mat-card-image src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" />
+            <div *ngIf="!movie.poster_path" class="no-image-bg">No Image Available</div>
             <mat-card-header>
                 <mat-card-title>{{movie.title}}</mat-card-title>
             </mat-card-header>
@@ -22,4 +35,12 @@
         </mat-card>
         </div>
     </div>
+
+    
+    <mat-paginator #paginator [length]="totalResults"
+              [pageSize]="20"
+              [pageSizeOptions]="[20]"
+              (page)="pageChangeEvent($event)">
+    </mat-paginator>
+   
 </div>

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MovieService } from '../movie.service';
+
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-home',
@@ -9,36 +11,77 @@ import { MovieService } from '../movie.service';
 
 export class HomeComponent implements OnInit {
 
+  @ViewChild('paginator') paginator: MatPaginator;
+
   movieList;
 
-  constructor( private movieService: MovieService ) { }
+  pagination = 1;
+  currentSection = 'popular';
+  totalResults;
 
+  searchValue = "";
+
+
+  constructor( private movieService: MovieService ) { }
+  
 
   ngOnInit(): void {
-    this.listPopularMovies();
+    this.movieList;
+    this.listPopularMovies(this.pagination);
   }
 
 
-  listPopularMovies() {
-    this.movieService.getPopularMovies().subscribe(
+  listPopularMovies(pageNumber) {
+    this.movieService.getPopularMovies(pageNumber).subscribe(
       (data: any) => {
+        this.totalResults = data.total_results;
         this.movieList = data.results;
-        console.log('popular',this.movieList);
+        console.log('popular', data);
       },
       err => console.log(err)
     );
   }
 
-  listTrendingMovies() {
-    this.movieService.getTrendingMovies().subscribe(
+  listTrendingMovies(pageNumber) {
+    this.movieService.getTrendingMovies(pageNumber).subscribe(
       (data: any) => {
+        this.totalResults = data.total_results;
         this.movieList = data.results;
-        console.log('trending',this.movieList);
+        console.log('trending', data);
       },
       err => console.log(err)
     );
   }
 
+
+  pageChangeEvent(event){
+    this.pagination = event.pageIndex + 1
+    
+    if(this.currentSection == 'popular'){
+      this.listPopularMovies(this.pagination);
+    }
+
+    else if(this.currentSection == 'trending'){
+      this.listTrendingMovies(this.pagination);
+    }
+
+    else if(this.currentSection == 'search'){
+      this.searchMovie(this.pagination);
+    }
+  }
+
+
+  searchMovie(pageNumber) {
+    this.currentSection = 'search';
+    this.movieService.searchEntries(this.searchValue, pageNumber).subscribe(
+      (data: any) => {
+        this.totalResults = data.total_results;
+        this.movieList = data.results;
+        console.log('search',data);
+      },
+      err => console.log(err)
+    );
+  }
   
 
 }

@@ -12,3 +12,14 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
+
+.search-input {
+    width: 250px;
+}
+
+.no-image-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}

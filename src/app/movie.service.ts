@@ -19,24 +19,18 @@ export class MovieService {
   constructor(private http: HttpClient) { }
 
 
-  getTrendingMovies() {
-    const api = this.API_HOST + 'trending/movie/day?api_key=' + this.API_KEY;
+  getTrendingMovies(page) {
+    const api = this.API_HOST + 'trending/movie/day?api_key=' + this.API_KEY + '&page=' + page;
     return this.http.get(api);
   }
 
-  getPopularMovies() {
-    const api = this.API_HOST + 'movie/popular?api_key=' + this.API_KEY + '&language=en-US&page=1';
+  getPopularMovies(page) {
+    const api = this.API_HOST + 'movie/popular?api_key=' + this.API_KEY + '&language=en-US&page=' + page;
     return this.http.get(api);
   }
 
-  search(terms) {
-    return terms.debounceTime(400)
-      .distinctUntilChanged()
-      .switchMap(terms => this.searchEntries(terms));
-  }
-
-  searchEntries(term) {
-    const api = `https://api.themoviedb.org/3/search/movie?api_key=${this.API_KEY}&query=${term}`;
+  searchEntries(term, page) {
+    const api = this.API_HOST + 'search/movie?api_key=' + this.API_KEY + '&query=' + term + '&page=' + page;
     return this.http.get(api);
   }
 }
