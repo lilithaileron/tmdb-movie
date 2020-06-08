@@ -5,18 +5,18 @@ import { ActivatedRoute } from '@angular/router';
 import { MovieService } from '../movie.service';
 
 @Component({
-  selector: 'app-movie',
-  templateUrl: './movie.component.html',
-  styleUrls: ['../app.component.scss','./movie.component.scss']
+  selector: 'app-cast',
+  templateUrl: './cast.component.html',
+  styleUrls: ['../app.component.scss','./cast.component.scss']
 })
-export class MovieComponent implements OnInit {
+export class CastComponent implements OnInit {
 
   // for routing
   sub;
   id;
 
-  movie;
-  castMembers;
+  cast;
+  movieList;
 
   constructor(private route: ActivatedRoute, private movieService: MovieService ) { }
 
@@ -26,11 +26,11 @@ export class MovieComponent implements OnInit {
 
       this.id = params['id'];
 
-      this.movieService.getMovieDetails(this.id).subscribe(
+      this.movieService.getCastDetails(this.id).subscribe(
         (data: any) => {
-          this.movie = data;
-          this.castMembers = data.credits.cast
-          console.log(this.movie);
+          this.cast = data;
+          this.movieList = data.movie_credits.cast;
+          console.log(this.cast);
         },
         err => console.log(err)
       );

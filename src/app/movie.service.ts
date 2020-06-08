@@ -35,12 +35,12 @@ export class MovieService {
   }
 
   getMovieDetails(id) {
-    const api = this.API_HOST + 'movie/' + id + '?api_key=' + this.API_KEY + '&language=en-US';
+    const api = this.API_HOST + 'movie/' + id + '?api_key=' + this.API_KEY + '&language=en-US&append_to_response=credits';
     return this.http.get(api);
   }
 
-  getMovieCast(id) {
-    const api = this.API_HOST + 'movie/' + id + '/credits?api_key=' + this.API_KEY;
+  getCastDetails(id){
+    const api = this.API_HOST + 'person/' + id + '?api_key=' + this.API_KEY + '&language=en-US&append_to_response=movie_credits';
     return this.http.get(api);
   }
 

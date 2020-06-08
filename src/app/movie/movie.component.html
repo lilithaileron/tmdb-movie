@@ -1,7 +1,10 @@
 <div class="main-layout">
 
     <div class="row" *ngIf="movie">
-        <div class="col-md-3"><img class="movie-poster" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}"></div>
+        <div class="col-md-3">
+            <img *ngIf="movie.poster_path" class="movie-poster" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}">
+            <div *ngIf="!movie.poster_path" class="no-image-bg">No Image Available</div>
+        </div>
         <div class="col-md-9">
             <h1>{{movie.title}}</h1>
             <p><b>Release Date:</b> {{movie.release_date | date:'mediumDate' }}</p>
@@ -14,7 +17,10 @@
                         <img *ngIf="cast.profile_path" class="cast-poster" src="https://image.tmdb.org/t/p/w500/{{cast.profile_path}}">
                         <mat-icon *ngIf="!cast.profile_path" class="icon-person">person</mat-icon>
                     </div>
-                    <div class="cast-name"><a routerLink="/credit/{{cast.credit_id}}">{{cast.name}}</a></div>
+                    <div class="cast-name">
+                        <a *ngIf="cast.profile_path" routerLink="/cast/{{cast.id}}">{{cast.name}}</a>
+                        <span *ngIf="!cast.profile_path">{{cast.name}}</span>
+                    </div>
                 </div>
             </div>
         </div>

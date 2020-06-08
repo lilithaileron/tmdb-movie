@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HomeComponent } from './home/home.component';
 import { MovieComponent } from './movie/movie.component';
+import { CastComponent } from './cast/cast.component';
 
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,11 +21,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    MovieComponent
+    MovieComponent,
+    CastComponent
   ],
   imports: [
     BrowserModule,

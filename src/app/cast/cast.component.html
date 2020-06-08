@@ -1,0 +1,22 @@
+<div class="main-layout">
+
+    <div class="row" *ngIf="cast">
+        <div class="col-md-3"><img class="cast-poster" src="https://image.tmdb.org/t/p/w500/{{cast.profile_path}}"></div>
+        <div class="col-md-9">
+            <h1>{{cast.name}}</h1>
+            <p><b>Birthday:</b> {{cast.birthday ? (cast.birthday | date:'mediumDate') : ('No Information') }}</p>
+            <p>{{cast.biography}}</p>
+            <p><b>Also starred in below movies:</b></p>
+            <div class="row col-md-12">
+                <div *ngFor="let movie of movieList" class="col-md-2">
+                    <div class="movie-wrapper" routerLink="/movie/{{movie.id}}">
+                        <img *ngIf="movie.poster_path" class="movie-poster" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}">
+                        <mat-icon *ngIf="!movie.poster_path" class="icon-movie">movie</mat-icon>
+                        <div class="text-center"><a routerLink="/movie/{{movie.id}}">{{movie.title}}</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
