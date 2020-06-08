@@ -30,7 +30,7 @@
                 <p class="movie-overview">{{movie.overview}}</p>                
             </mat-card-content>
             <mat-card-actions>
-                <button mat-button>View Details</button>
+                <a mat-flat-button routerLink="/movie/{{movie.id}}">View Details</a>
             </mat-card-actions>
         </mat-card>
         </div>

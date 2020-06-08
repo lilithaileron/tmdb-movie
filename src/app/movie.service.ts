@@ -33,4 +33,15 @@ export class MovieService {
     const api = this.API_HOST + 'search/movie?api_key=' + this.API_KEY + '&query=' + term + '&page=' + page;
     return this.http.get(api);
   }
+
+  getMovieDetails(id) {
+    const api = this.API_HOST + 'movie/' + id + '?api_key=' + this.API_KEY + '&language=en-US';
+    return this.http.get(api);
+  }
+
+  getMovieCast(id) {
+    const api = this.API_HOST + 'movie/' + id + '/credits?api_key=' + this.API_KEY;
+    return this.http.get(api);
+  }
+
 }
