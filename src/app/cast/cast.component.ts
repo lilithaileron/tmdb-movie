@@ -30,7 +30,6 @@ export class CastComponent implements OnInit {
         (data: any) => {
           this.cast = data;
           this.movieList = data.movie_credits.cast;
-          console.log(this.cast);
         },
         err => console.log(err)
       );

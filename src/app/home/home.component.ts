@@ -15,8 +15,9 @@ export class HomeComponent implements OnInit {
 
   movieList;
 
-  pagination = 1;
-  currentSection = 'popular';
+  pagination = 1; //for init
+  currentSection = 'popular'; //for navigation purpose
+
   totalResults;
 
   searchValue = "";
@@ -36,7 +37,6 @@ export class HomeComponent implements OnInit {
       (data: any) => {
         this.totalResults = data.total_results;
         this.movieList = data.results;
-        console.log('popular', data);
       },
       err => console.log(err)
     );
@@ -47,7 +47,6 @@ export class HomeComponent implements OnInit {
       (data: any) => {
         this.totalResults = data.total_results;
         this.movieList = data.results;
-        console.log('trending', data);
       },
       err => console.log(err)
     );
@@ -77,7 +76,6 @@ export class HomeComponent implements OnInit {
       (data: any) => {
         this.totalResults = data.total_results;
         this.movieList = data.results;
-        console.log('search',data);
       },
       err => console.log(err)
     );

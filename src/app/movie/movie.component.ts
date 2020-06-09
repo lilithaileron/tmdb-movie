@@ -29,8 +29,7 @@ export class MovieComponent implements OnInit {
       this.movieService.getMovieDetails(this.id).subscribe(
         (data: any) => {
           this.movie = data;
-          this.castMembers = data.credits.cast
-          console.log(this.movie);
+          this.castMembers = data.credits.cast;
         },
         err => console.log(err)
       );
